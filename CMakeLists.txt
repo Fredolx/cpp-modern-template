@@ -40,27 +40,29 @@ endif()
 
 project(CPPModernTemplate LANGUAGES CXX VERSION 0.1.0)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(spdlog)
 
-add_executable(CPPModernTemplate src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 if(MSVC)
-    target_compile_options(CPPModernTemplate PRIVATE /W4)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 else()
-    target_compile_options(CPPModernTemplate PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-target_link_libraries(CPPModernTemplate PRIVATE
+target_link_libraries(${PROJECT_NAME} PRIVATE
     spdlog::spdlog
 )
 
-add_custom_command(TARGET CPPModernTemplate POST_BUILD
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-    "$<TARGET_FILE_DIR:CPPModernTemplate>/assets"
+    "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
     COMMENT "Syncing assets folder to build directory..."
 )
