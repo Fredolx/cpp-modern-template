@@ -66,3 +66,14 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
     COMMENT "Syncing assets folder to build directory..."
 )
+
+if (ANDROID)
+    # Change the destination path to your jni folder
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$ENV{ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so"
+        "${CMAKE_SOURCE_DIR}/sample_android"
+        COMMENT "Copy Android NDK STL to JNI folder"
+    )
+endif()
+

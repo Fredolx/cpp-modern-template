@@ -32,8 +32,8 @@
             "cacheVariables": {
                 "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "$env{ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake",
                 "VCPKG_KEEP_ENV_VARS": "ANDROID_NDK_HOME",
-                "ANDROID_PLATFORM": "android-21",
-                "ANDROID_STL": "c++_static"
+                "ANDROID_PLATFORM": "android-30",
+                "ANDROID_STL": "c++_shared"
             }
         },
         {
